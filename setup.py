@@ -21,8 +21,8 @@ class NoSuffixBuilder(build_ext):
 
 setup(
     name='cfr-graphem',
-    version='0.1.6',
-    description='The GraphEM component for CFR.',
+    version='0.2.1',
+    description='The GraphEM component for CFR',
     long_description=long_description,
     long_description_content_type='text/x-rst',
     author='Feng Zhu, Julien Emile-Geay',
@@ -37,11 +37,10 @@ setup(
     keywords='climate field reconstruction',
     classifiers=[
         'Natural Language :: English',
-        'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
     ],
     install_requires=[
-        'cython',
+        'cfr',
     ],
 )
