@@ -21,12 +21,12 @@ class NoSuffixBuilder(build_ext):
 
 setup(
     name='cfr-graphem',
-    version='0.2.1',
+    version='0.2.8',
     description='The GraphEM component for CFR',
     long_description=long_description,
     long_description_content_type='text/x-rst',
     author='Feng Zhu, Julien Emile-Geay',
-    author_email='fengzhu@usc.edu, julieneg@usc.edu',
+    author_email='fengzhu@ucar.edu, julieneg@usc.edu',
     url='https://github.com/fzhu2e/cfr-graphem',
     packages=find_packages(),
     include_package_data=True,

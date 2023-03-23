@@ -1,5 +1,6 @@
 import numpy as np
 from . import QUIC
+from tqdm import tqdm
 
 def graph_greedy_search(field_inst, proxy_inst, target_FF, target_FP, target_PP = 0.0, N=30, maxit=500):
     '''
@@ -75,9 +76,14 @@ def graph_greedy_search(field_inst, proxy_inst, target_FF, target_FP, target_PP 
     sparsity = [0.0,0.0,0.0]
     
 
-    print("Iter    FF      FP      PP\n")
+    # print("Iter    FF      FP      PP\n")
+    sparsity_FF, sparsity_FP, sparsity_PP = 0, 0, 0
     
-    while (stop == 0) & (it < maxit):
+    # print("%1.3d  %6.3f  %6.3f  %6.3f" % (it, sparsity_FF, sparsity_FP, sparsity_PP))
+    pbar = tqdm(range(maxit), desc=f'graph_greedy_search | FF: {sparsity_FF:6.3f}; FP: {sparsity_FP:6.3f}; PP: {sparsity_PP:6.3f}')
+    for it in pbar:
+        pbar.set_description(f'graph_greedy_search | FF: {sparsity_FF:6.3f}; FP: {sparsity_FP:6.3f}; PP: {sparsity_PP:6.3f}')
+    # while (stop == 0) & (it < maxit):
         sparsity_prec = np.copy(sparsity)
         adj_prec = np.copy(adj)
         # Build penalty matrix
@@ -88,7 +94,7 @@ def graph_greedy_search(field_inst, proxy_inst, target_FF, target_FP, target_PP 
 
         [W, O] = QUIC.QUIC(S, pen)
         # Compute sparsity of the different parts (TODO)
-        [sparsity_FF, sparsity_FP, sparsity_PP, adj] = sp_level_3(O, ind_F, ind_P)
+        sparsity_FF, sparsity_FP, sparsity_PP, adj = sp_level_3(O, ind_F, ind_P)
         sparsity = [sparsity_FF, sparsity_FP, sparsity_PP]
 
         if (sparsity_FF < target_FF):
@@ -102,7 +108,7 @@ def graph_greedy_search(field_inst, proxy_inst, target_FF, target_FP, target_PP 
 
         it = it + 1
         # Print current iteration information
-        print("%1.3d  %6.3f  %6.3f  %6.3f" % (it, sparsity_FF, sparsity_FP, sparsity_PP))
+        # print("%1.3d  %6.3f  %6.3f  %6.3f" % (it, sparsity_FF, sparsity_FP, sparsity_PP))
         c_point = c_FF + c_FP*N + c_PP*N**2
 
         if (c_point in visited):

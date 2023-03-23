@@ -7,6 +7,7 @@ from .GraphEstimation import graph_greedy_search
 from .GraphEstimation import neighbor_graph
 import matplotlib.pyplot as plt
 from matplotlib import gridspec
+from tqdm import tqdm
 
 
 class GraphEM(object):
@@ -208,11 +209,21 @@ class GraphEM(object):
         rdXmis = np.inf
 
         Xmis = np.zeros((n,p))
+        dXmis = np.nan
 
-        if verbose: print("Iter     dXmis     rdXmis\n")
+        # if verbose: print("Iter     dXmis     rdXmis\n")
         
-        while ((it < maxit) & (rdXmis > self.tol)):
-            it = it + 1
+        pbar = tqdm(range(maxit), desc=f'EM | dXmis: {dXmis:1.4f}; rdXmis: {rdXmis:1.4f}')
+        for it in pbar:
+            pbar.set_description(f'EM | dXmis: {dXmis:1.4f}; rdXmis: {rdXmis:1.4f}')
+        # while ((it < maxit) & (rdXmis > self.tol)):
+            # it = it + 1
+            if rdXmis > self.tol:
+                pass
+            else:
+                print('GraphEM.EM(): Tolerance achieved.')
+                break
+
             CovRes = np.zeros((p,p))
             D = np.sqrt(np.diag(C))
             D[abs(D) < 1e-3] = 1.0  # Do not scale constant variables
@@ -253,7 +264,7 @@ class GraphEM(object):
                 C = (X.T.dot(X) + CovRes)/(n-1)
             else:
                 C = self.fit_Sigma(np.cov(X.T) + CovRes/(n-1), self.graph)
-            if verbose: print("%1.3d     %1.4f     %1.4f" % (it, dXmis, rdXmis))
+            # if verbose: print("%1.3d     %1.4f     %1.4f" % (it, dXmis, rdXmis))
         X = X + M
 
         return [X, C, M]
