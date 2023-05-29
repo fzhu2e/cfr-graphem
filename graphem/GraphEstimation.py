@@ -153,7 +153,7 @@ def neighbor_graph(lonlat, ind_F, ind_P, cutoff_radius = 1000):
     print("Estimating graph using neighborhood method")
 
     D = dMat(lonlat)
-    adj = (D <= cutoff_radius).astype(np.int)           # replace 0s or 1s
+    adj = (D <= cutoff_radius).astype(int)           # replace 0s or 1s
     adj[np.ix_(ind_P, ind_P)] = np.eye(len(ind_P)) # set pp to 1s
     sparsity = graph_sparsity(adj, ind_F, ind_P)
 
