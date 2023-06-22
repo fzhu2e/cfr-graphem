@@ -112,7 +112,8 @@ def graph_greedy_search(field_inst, proxy_inst, target_FF, target_FP, target_PP 
         c_point = c_FF + c_FP*N + c_PP*N**2
 
         if (c_point in visited):
-            stop = 1
+            # stop = 1
+            break
         else:
             visited = np.append(visited, c_point)
     
