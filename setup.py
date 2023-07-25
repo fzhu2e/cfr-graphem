@@ -21,7 +21,7 @@ class NoSuffixBuilder(build_ext):
 
 setup(
     name='cfr-graphem',
-    version='0.3.1',
+    version='0.4.0',
     description='The GraphEM component for CFR',
     long_description=long_description,
     long_description_content_type='text/x-rst',

@@ -37,7 +37,7 @@ class GraphEM(object):
         self.Sigma = []
         self.mu = []
 
-    def fit(self, field, proxy, calib, graph=[], lonlat=[], sp_FF=3.0, sp_FP=3.0, sp_PP=3.0, N_graph=30, C0=[], M0=[], maxit=200,
+    def fit(self, field, proxy, calib, graph=None, lonlat=[], sp_FF=3.0, sp_FP=3.0, sp_PP=3.0, N_graph=30, C0=[], M0=[], maxit=200,
         bootstrap=False, N_boot=20, cutoff_radius=1000, graph_method='neighborhood', estimate_graph=True, save_graphs=False, verbose=False):
         '''
         Estimates the parameters of the GraphEM model and reconstruct the missing values of the climate
@@ -131,7 +131,7 @@ class GraphEM(object):
                     return "Error: graph can't be generated! Please choose a graph option."
 
             else:
-                if graph == []:
+                if graph is None:
                     return "Error: you need to specify a graph if estimate_graph = False."
                 else:
                     if verbose: print("Using specified graph")
