@@ -263,7 +263,7 @@ class GraphEM(object):
             if use_iridge:
                 C = (X.T.dot(X) + CovRes)/(n-1)
             else:
-                C = self.fit_Sigma(np.cov(X.T) + CovRes/(n-1), self.graph)
+                C = self.fit_Sigma(np.cov(X.T) + CovRes/(n-1), graph)
             # if verbose: print("%1.3d     %1.4f     %1.4f" % (it, dXmis, rdXmis))
         X = X + M
 
