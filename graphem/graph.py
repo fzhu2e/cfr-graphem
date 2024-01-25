@@ -333,8 +333,13 @@ class Graph:
             neighbor_value = self.field[:, i]
             if time_idx_range is None:
                 time_idx_range = ~np.isnan(neighbor_value)
-            # print('np.shape(neighbor_value):', np.shape(neighbor_value))
-            corr = np.corrcoef(neighbor_value[time_idx_range], target_value[time_idx_range])[1, 0]
+
+            time_idx_range_target = ~np.isnan(target_value)
+            time_idx_common = time_idx_range*time_idx_range_target
+
+            # print('np.shape(neighbor_value):', np.shape(neighbor_value[time_idx_common]))
+            # print('np.shape(target_value):', np.shape(target_value[time_idx_common]))
+            corr = np.corrcoef(neighbor_value[time_idx_common], target_value[time_idx_common])[1, 0]
             corrs.append(corr)
         # print(corrs)
 
